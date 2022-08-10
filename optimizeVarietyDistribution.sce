@@ -41,7 +41,7 @@ function Optim(varargin)
     Area = 1 //hectare
     selling_price = 380000 // XOF per ton
     maintenance_price = 500000 // XOF per hectare
-    aS = 0.95
+    aH = 0.95
     aL = 0.05
     // State variables are in plants/hectares and whiteflies/hectare
     
@@ -139,19 +139,19 @@ function Optim(varargin)
     //************************************************************************************************************************************
     function YY = Modele(theta) //Return all values at T
         t = t0+step:step:T
-        S1_0 = aS*theta(1)*K
-        S2_0 = aS*theta(2)*K
-        S3_0 = aS*theta(3)*K
-        S4_0 = aS*theta(4)*K
+        H1_0 = aH*theta(1)*K
+        H2_0 = aH*theta(2)*K
+        H3_0 = aH*theta(3)*K
+        H4_0 = aH*theta(4)*K
         L1_0 = aL*theta(1)*K
         L2_0 = aL*theta(2)*K
         L3_0 = aL*theta(3)*K
         L4_0 = aL*theta(4)*K
-        I11_0 = (1-aL-aS)*theta(1)*K
-        I21_0 = (1-aL-aS)*theta(2)*K
-        I31_0 = (1-aL-aS)*theta(3)*K
-        I41_0 = (1-aL-aS)*theta(4)*K
-        Sol = ode([S1_0;L1_0;I11_0;0;0;0;0;S2_0;L2_0;I21_0;0;0;0;0;S3_0;L3_0;I31_0;0;0;0;0;S4_0;L4_0;I41_0;0;0;0;0;U0;V0],t0,t,season); 
+        I11_0 = (1-aL-aH)*theta(1)*K
+        I21_0 = (1-aL-aH)*theta(2)*K
+        I31_0 = (1-aL-aH)*theta(3)*K
+        I41_0 = (1-aL-aH)*theta(4)*K
+        Sol = ode([H1_0;L1_0;I11_0;0;0;0;0;H2_0;L2_0;I21_0;0;0;0;0;H3_0;L3_0;I31_0;0;0;0;0;H4_0;L4_0;I41_0;0;0;0;0;U0;V0],t0,t,season); 
         nn = length(Sol(1,:));
         YY = round(Sol(:,nn))
     endfunction
@@ -338,4 +338,4 @@ function Optim(varargin)
     [thetaOpt, profitMax]=max_ars([0.25 0.25 0.25 0.25])
     disp("The best proportions of varieties are "+string(thetaOpt)+" and it yields the profit: "+string(profitMax))
 endfunction
-Optim("massAction",0.0006,[100 300 500 700]) 
+Optim("massAction",0.0006,[100 300 600 700]) 
