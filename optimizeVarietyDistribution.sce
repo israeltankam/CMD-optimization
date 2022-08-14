@@ -338,4 +338,4 @@ function Optim(varargin)
     [thetaOpt, profitMax]=max_ars([0.25 0.25 0.25 0.25])
     disp("The best proportions of varieties are "+string(thetaOpt)+" and it yields the profit: "+string(profitMax))
 endfunction
-Optim("massAction",0.0006,[100 300 600 700]) 
+Optim("massAction",0.0066,[100 300 600 700]) 
