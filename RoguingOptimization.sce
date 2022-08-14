@@ -243,5 +243,5 @@ endfunction
 disp("The optimal roguing strategy is:",gammaOpt)
 disp("It yields the profit:", maxProfit)
 endfunction
-Optim("massAction",0.0006) // Implementation with density dependant transmission rate
+Optim("massAction",0.0066) // Implementation with density dependant transmission rate
 //Optim("frequency",0.006)
