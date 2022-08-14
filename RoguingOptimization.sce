@@ -30,7 +30,7 @@ function Optim(varargin)
     m = 20
     mu = 1/20
     omega = 0.1882
-    alpha = 0.01
+    alpha = 0.007
     K = 10000 // Density of plants per hectare
     T = 300
     t0 = 0
