@@ -399,4 +399,4 @@ function Optim(varargin)
     disp(best_strategy)
     disp("It yields the profit: $"+string(best_profit)+" with the hyperparameter lambda="+string(best_lambda))
 endfunction
-Optim("frequency",0.0006,[25 50 50 75],6) 
+Optim("frequency",0.0066,[25 50 50 75],6) 
