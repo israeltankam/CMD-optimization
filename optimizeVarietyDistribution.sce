@@ -33,7 +33,7 @@ function Optim(varargin)
     mu = 1/20
     omega = 0.1882
     alpha = [0.01 0.007 0.003 0.0008]
-    gammaq = [0.0006988 0.0006314 0.5899016 0.8241926 0.8621587]
+    gammaq = [0.000012  0.0010911 0.173672 0.329857 0.9128083]
     K = 10000 // Density of plants per hectare
     T = 300
     t0 = 0
