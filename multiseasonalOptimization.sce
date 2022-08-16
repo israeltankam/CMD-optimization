@@ -38,7 +38,7 @@ function Optim(varargin)
     mu = 1/20
     omega = 0.1882
     alpha = [0.01 0.007 0.003 0.0008]
-    gammaq = [0.000 0.000 0.005 0.005 0.010]
+    gammaq = [0.0006988 0.0006314 0.5899016 0.8241926 0.8621587]
     K = 10000 // Density of plants per hectare
     T = 300
     step = 0.01
@@ -48,7 +48,7 @@ function Optim(varargin)
     maintenance_price = 300000 // XOF per hectare
     aH = 0.95
     aL = 0.05
-    theta = [0.15 0.35 0.35 0.15]
+    theta = [0 0.3586 0.6414  0]
     // State variables are in plants/hectares and whiteflies/hectare
     
     //******************************************** Initial conditions ****************************************
@@ -222,7 +222,7 @@ function Optim(varargin)
                     [H1_0,L1_0,I11_0,I12_0,I13_0,I14_0,I15_0,H2_0,L2_0,I21_0,I22_0,I23_0,I24_0,I25_0,H3_0,L3_0,I31_0,I32_0,I33_0,I34_0,I35_0,H4_0,L4_0,I41_0,I42_0,I43_0,I44_0,I45_0] = deal((K/ss)*finalValues(1:28))
                     sol0 = ode([H1_0;L1_0;I11_0;I12_0;I13_0;I14_0;I15_0;H2_0;L2_0;I21_0;I22_0;I23_0;I24_0;I25_0;H3_0;L3_0;I31_0;I32_0;I33_0;I34_0;I35_0;H4_0;L4_0;I41_0;I42_0;I43_0;I44_0;I45_0;U0;V0],t_init+T,t+T,season);
                     yield0 = tuber_yield(round(sol0(:,length(sol0(1,:)))))
-                    regulator0 = sum(sol0(2:7,length(sol0(1,:)))+sol0(9:14,length(sol0(1,:)))+sol0(16:21,length(sol0(1,:)))+sol0(23:28,length(sol0(1,:)))) //sol0(30,length(sol0(1,:)))
+                    regulator0 = sum(sol0(2:7,length(sol0(1,:)))+sol0(9:14,length(sol0(1,:)))+sol0(16:21,length(sol0(1,:)))+sol0(23:28,length(sol0(1,:))))
                    // strategy = 1 : from market
                     H1_0 = aH*theta(1)*K
                     H2_0 = aH*theta(2)*K
@@ -255,11 +255,7 @@ function Optim(varargin)
                     I45_0 = 0
                     sol1 = ode([H1_0;L1_0;I11_0;I12_0;I13_0;I14_0;I15_0;H2_0;L2_0;I21_0;I22_0;I23_0;I24_0;I25_0;H3_0;L3_0;I31_0;I32_0;I33_0;I34_0;I35_0;H4_0;L4_0;I41_0;I42_0;I43_0;I44_0;I45_0;U0;V0],t_init+T,t+T,season);
                     yield1 = tuber_yield(round(sol1(:,length(sol1(1,:)))))
-                    regulator1 = sum(sol1(2:7,length(sol1(1,:)))+sol1(9:14,length(sol1(1,:)))+sol1(16:21,length(sol1(1,:)))+sol1(23:28,length(sol1(1,:)))) // sol1(30,length(sol1(1,:))) 
-                    //disp("reg0 : ",regulator0)
-                    //disp("yield 0 : ",yield0)
-                    //disp("yield 1 :",yield1)
-                    //disp("reg1 : ",regulator1)
+                    regulator1 = sum(sol1(2:7,length(sol1(1,:)))+sol1(9:14,length(sol1(1,:)))+sol1(16:21,length(sol1(1,:)))+sol1(23:28,length(sol1(1,:)))) 
                     if profit_season(yield0,0) - lambda*regulator0 > profit_season(yield1,1) - lambda*regulator1 then
                         strategy = [strategy 0]
                         Sol = sol0
@@ -399,4 +395,4 @@ function Optim(varargin)
     disp(best_strategy)
     disp("It yields the profit: $"+string(best_profit)+" with the hyperparameter lambda="+string(best_lambda))
 endfunction
-Optim("frequency",0.0066,[25 50 50 75],6) 
+Optim("frequency",0.0066,[0 25 400 650],6) 
